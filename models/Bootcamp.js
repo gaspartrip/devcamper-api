@@ -93,6 +93,11 @@ const BootcampSchema = new moongose.Schema(
       type: Boolean,
       default: false,
     },
+    user: {
+      type: moongose.Schema.ObjectId,
+      required: true,
+      ref: "User",
+    },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -108,14 +113,13 @@ const BootcampSchema = new moongose.Schema(
   }
 );
 
-BootcampSchema.pre("save", function (next) {
+BootcampSchema.pre("save", function () {
   this.slug = slugify(this.name, {
     lower: true,
   });
-  next();
 });
 
-BootcampSchema.pre("save", async function (next) {
+BootcampSchema.pre("save", async function () {
   const loc = await geocoder.geocode(this.address);
   this.location = {
     type: "Point",
@@ -129,12 +133,10 @@ BootcampSchema.pre("save", async function (next) {
     country: loc[0].countryCode,
   };
   this.address = undefined;
-  next();
 });
 
-BootcampSchema.pre("remove", async function (next) {
+BootcampSchema.pre("remove", async function () {
   await this.model("Course").deleteMany({ bootcamp: this._id });
-  next();
 });
 
 BootcampSchema.virtual("courses", {

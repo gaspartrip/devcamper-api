@@ -29,14 +29,19 @@ const CourseSchema = new moongose.Schema({
     type: Boolean,
     default: false,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
   bootcamp: {
     type: moongose.Schema.ObjectId,
     required: true,
     ref: "Bootcamp",
+  },
+  user: {
+    type: moongose.Schema.ObjectId,
+    required: true,
+    ref: "User",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 

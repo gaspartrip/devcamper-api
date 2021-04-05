@@ -12,7 +12,7 @@ const errorHandler = (err, req, res, next) => {
   }
   if (err.message === "MaxFileUploadError") {
     err = new ErrorResponse(
-      `Please upload an image less than ${process.env.MAX_FILE_UPLOAD} bytes`,
+      `Please upload a file less than ${process.env.MAX_FILE_UPLOAD} bytes`,
       400
     );
   }
@@ -24,6 +24,9 @@ const errorHandler = (err, req, res, next) => {
       Object.values(err.errors).map((value) => value.properties.message),
       400
     );
+  }
+  if (err.message.endsWith(".")) {
+    err.message = err.message.slice(0, -1);
   }
   res.status(err.statusCode || 500).json({
     success: false,
