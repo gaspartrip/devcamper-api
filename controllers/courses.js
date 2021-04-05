@@ -81,6 +81,7 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+  await course.save();
   res.status(200).json({ success: true, data: course });
 });
 

@@ -17,7 +17,14 @@ const errorHandler = (err, req, res, next) => {
     );
   }
   if (err.code === 11000) {
-    err = new ErrorResponse("Duplicate field value entered", 400);
+    if (err.keyPattern.bootcamp && err.keyPattern.user) {
+      err = new ErrorResponse(
+        "There is already a review in this bootcamp",
+        400
+      );
+    } else {
+      err = new ErrorResponse("Duplicate field value entered", 400);
+    }
   }
   if (err.name === "ValidationError") {
     err = new ErrorResponse(

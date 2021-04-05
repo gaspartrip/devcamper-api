@@ -70,7 +70,7 @@ const BootcampSchema = new moongose.Schema(
     averageRating: {
       type: Number,
       min: [1, "Rating must be at least 1"],
-      max: [10, "Rating must can not be longer than 10"],
+      max: [10, "Rating can not be longer than 10"],
     },
     averageCost: Number,
     photo: {
