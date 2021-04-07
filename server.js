@@ -1,6 +1,5 @@
 const express = require("express");
-const dotenv = require("dotenv");
-dotenv.config({ path: "./config/config.env" });
+require("dotenv").config();
 const connectDB = require("./config/db");
 const morgan = require("morgan");
 const colors = require("colors");
@@ -29,7 +28,7 @@ if (process.env.NODE_ENV === "development") {
 app.use(fileupload());
 app.use(cookieParser());
 app.use(mongoSanitize());
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(xss());
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,

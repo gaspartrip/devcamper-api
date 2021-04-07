@@ -2,7 +2,7 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 const colors = require("colors");
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config/config.env" });
+dotenv.config();
 const User = require("./models/User");
 const Bootcamp = require("./models/Bootcamp");
 const Course = require("./models/Course");
